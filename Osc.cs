@@ -56,8 +56,7 @@ public class Osc
 		return data;
 	}
 
-	#region details
-	static String ReadString(byte[] data, ref int offset)
+	public static String ReadString(byte[] data, ref int offset)
 	{
 		int count = 0;
 		for(; (offset+count)<data.Length && data[offset+count]!=0;count++);
@@ -66,6 +65,7 @@ public class Osc
 		return result;
 	}
 
+	#region details
 	static int ReadInt32(byte[] data, ref int offset)
 	{
 		int res = IPAddress.NetworkToHostOrder( BitConverter.ToInt32(data, offset) );

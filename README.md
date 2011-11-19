@@ -7,7 +7,8 @@
 - Only basic types ('i', 'f', 's') without blobs.
 - No bundles.
 - No transport layer (send and receive yourself, however you please).
-  - example transport implementation is coming though
+  - example of UDP transport:
+    [SCClient.cs](https://github.com/artm/Cyrus/blob/master/Assets/Standard%20Assets/SCClient.cs)
 - No comments (read the fucking code)
 
 ## Rationale

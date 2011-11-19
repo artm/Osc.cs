@@ -5,7 +5,6 @@ using System.Net;
 
 public class Osc
 {
-	// read and advance the offset
 	public static String ReadString(byte[] data, ref int offset)
 	{
 		int count = 0;

@@ -5,31 +5,28 @@ using System.Net;
 
 public class Osc
 {
-	public static IEnumerable ParseArgs(byte[] data, int offset, string types)
+	public static object[] ToArray(byte[] data)
 	{
+		int offset = 0;
+		string path = Osc.ReadString(data,ref offset);
+		string types = Osc.ReadString(data,ref offset);
+		object[] res = new object[types.Length];
+		res[0] = path;
+		int i = 1;
 		foreach(char t in types.Substring(1)) {
 			switch(t) {
 			case 'i':
-				yield return ReadInt32(data, ref offset);
+				res[i++] = ReadInt32(data, ref offset);
 				break;
 			case 'f':
-				yield return ReadFloat32(data, ref offset);
+				res[i++] = ReadFloat32(data, ref offset);
 				break;
 			case 's':
-				yield return ReadString(data, ref offset);
+				res[i++] = ReadString(data, ref offset);
 				break;
 			default:
 				throw new NotImplementedException("OSC type '" + t + "' not implemented");
 			}
-		}
-	}
-
-	public static object[] ToArray(byte[] data, int offset, string types)
-	{
-		object[] res = new object[types.Length-1];
-		int i = 0;
-		foreach(object o in ParseArgs(data,offset,types)) {
-			res[i++] = o;
 		}
 		return res;
 	}
@@ -56,7 +53,8 @@ public class Osc
 		return data;
 	}
 
-	public static String ReadString(byte[] data, ref int offset)
+	#region details
+	static String ReadString(byte[] data, ref int offset)
 	{
 		int count = 0;
 		for(; (offset+count)<data.Length && data[offset+count]!=0;count++);
@@ -65,7 +63,6 @@ public class Osc
 		return result;
 	}
 
-	#region details
 	static int ReadInt32(byte[] data, ref int offset)
 	{
 		int res = IPAddress.NetworkToHostOrder( BitConverter.ToInt32(data, offset) );

@@ -1,7 +1,7 @@
 # Extremely minimal OSC implementation.
 
 - OSC packet parser (for reception)
-  - provides payload iterator and a convertor to array of object's
+  - converts packet to object[]
 - OSC packet builder (for sending)
   - provides simple variadic API
 - Only basic types ('i', 'f', 's') without blobs.

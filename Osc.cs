@@ -87,8 +87,7 @@ public class Osc
 
 	static int PaddedLength(int l)
 	{
-		l += l % 4 > 0 ? 4 - l % 4 : 0;
-		return l;
+		return l + 4 - l % 4;
 	}
 
 	static int PaddedLength(String s)
